@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ArtistsService } from './artists.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
@@ -18,7 +19,10 @@ export class ArtistsController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() createArtistDto: CreateArtistDto) {
+  create(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    createArtistDto: CreateArtistDto,
+  ) {
     return this.artistsService.create(createArtistDto);
   }
 
@@ -33,7 +37,11 @@ export class ArtistsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
+  update(
+    @Param('id') id: string,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    updateArtistDto: UpdateArtistDto,
+  ) {
     return this.artistsService.update(id, updateArtistDto);
   }
 
