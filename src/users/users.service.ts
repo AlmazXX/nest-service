@@ -25,6 +25,7 @@ export class UsersService {
       const user = await this.prismaService.user.create({
         data: createUserDto,
       });
+
       return new User(user);
     } catch (error) {
       throw error;
@@ -63,10 +64,6 @@ export class UsersService {
 
   async update(id: string, { oldPassword, newPassword }: UpdatePasswordDto) {
     try {
-      if (!newPassword || typeof newPassword !== 'string') {
-        throw new BadRequestException('New password must be type of string');
-      }
-
       const user = await this.prismaService.user.findUniqueOrThrow({
         where: { id },
       });
