@@ -17,11 +17,19 @@ export class PrismaClientExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof PrismaClientKnownRequestError) {
       let statusCode = 400;
-      message = <string>exception.meta.message;
 
       switch (exception.code) {
+        case 'P2002':
+          statusCode = 404;
+          message =
+            <string>exception.meta.message ||
+            `Unique constraint failed on the {constraint}`;
+          break;
         case 'P2003':
           statusCode = 422;
+          message =
+            <string>exception.meta.message ||
+            `Foreign key constraint failed on the field: ${exception.meta.field_name}`;
           break;
         case 'P2025':
           statusCode = 404;
