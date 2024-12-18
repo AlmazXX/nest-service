@@ -13,11 +13,7 @@ export class ArtistsService {
   }
 
   async findAll() {
-    try {
-      return await this.prismaService.artist.findMany();
-    } catch (error) {
-      throw error;
-    }
+    return await this.prismaService.artist.findMany();
   }
 
   async findOne(id: string) {
