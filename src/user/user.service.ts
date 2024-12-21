@@ -9,7 +9,7 @@ import { UpdatePasswordDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createUserDto: CreateUserDto) {
     const doesExist = await this.prismaService.user.findUnique({

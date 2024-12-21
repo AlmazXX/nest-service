@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Fave } from './entities/fave.entity';
 
 @Injectable()
-export class FavesService {
+export class FavService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findAll() {

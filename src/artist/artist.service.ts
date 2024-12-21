@@ -4,7 +4,7 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 
 @Injectable()
-export class ArtistsService {
+export class ArtistService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createArtistDto: CreateArtistDto) {
     return await this.prismaService.artist.create({

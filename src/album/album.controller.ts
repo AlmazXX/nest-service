@@ -9,16 +9,17 @@ import {
   Put,
   ValidationPipe,
 } from '@nestjs/common';
-import { AlbumsService } from './albums.service';
+import { StatusCodes } from 'http-status-codes';
+import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 
 @Controller('albums')
-export class AlbumsController {
-  constructor(private readonly albumsService: AlbumsService) {}
+export class AlbumController {
+  constructor(private readonly albumsService: AlbumService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(StatusCodes.CREATED)
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createAlbumDto: CreateAlbumDto,
@@ -46,7 +47,7 @@ export class AlbumsController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(StatusCodes.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.albumsService.remove(id);
   }

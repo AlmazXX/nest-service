@@ -7,13 +7,13 @@ import {
   Param,
   Post,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common';
-import { FavesService } from './faves.service';
+import { StatusCodes } from 'http-status-codes';
+import { FavService } from './fav.service';
 
 @Controller('favs')
-export class FavesController {
-  constructor(private readonly favesService: FavesService) {}
+export class FavController {
+  constructor(private readonly favesService: FavService) {}
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
@@ -22,25 +22,25 @@ export class FavesController {
   }
 
   @Post('artist/:id')
-  @HttpCode(201)
+  @HttpCode(StatusCodes.CREATED)
   createFaveArtist(@Param('id') id: string) {
     return this.favesService.createFaveArtist(id);
   }
 
   @Delete('artist/:id')
-  @HttpCode(204)
+  @HttpCode(StatusCodes.NO_CONTENT)
   deleteFaveArtist(@Param('id') id: string) {
     return this.favesService.deleteFaveArtist(id);
   }
 
   @Post('album/:id')
-  @HttpCode(201)
+  @HttpCode(StatusCodes.CREATED)
   createFaveAlbum(@Param('id') id: string) {
     return this.favesService.createFaveAlbum(id);
   }
 
   @Delete('album/:id')
-  @HttpCode(204)
+  @HttpCode(StatusCodes.NO_CONTENT)
   deleteFaveAlbum(@Param('id') id: string) {
     return this.favesService.deleteFaveAlbum(id);
   }

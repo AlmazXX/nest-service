@@ -11,18 +11,19 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
+import { StatusCodes } from 'http-status-codes';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 
-@Controller('users')
+@Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UserController {
+  constructor(private readonly usersService: UserService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(StatusCodes.CREATED)
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createUserDto: CreateUserDto,
@@ -50,7 +51,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(StatusCodes.NO_CONTENT)
   remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);
   }

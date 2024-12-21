@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class AlbumsService {
+export class AlbumService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createAlbumDto: CreateAlbumDto) {
     return await this.prismaService.album.create({

@@ -9,16 +9,17 @@ import {
   Put,
   ValidationPipe,
 } from '@nestjs/common';
-import { ArtistsService } from './artists.service';
+import { StatusCodes } from 'http-status-codes';
+import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 
-@Controller('artists')
-export class ArtistsController {
-  constructor(private readonly artistsService: ArtistsService) {}
+@Controller('artist')
+export class ArtistController {
+  constructor(private readonly artistsService: ArtistService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(StatusCodes.CREATED)
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createArtistDto: CreateArtistDto,
@@ -46,7 +47,7 @@ export class ArtistsController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(StatusCodes.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.artistsService.remove(id);
   }
