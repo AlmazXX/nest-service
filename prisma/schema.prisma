@@ -23,14 +23,12 @@ model User {
 }
 
 model Artist {
-  id               String      @id @default(uuid()) @db.Uuid
-  name             String
-  grammy           Boolean     @default(false)
-  Album            Album[]
-  FaveArtist       FaveArtist?
-  FaveAlbum        FaveAlbum?  @relation(fields: [faveAlbumAlbumId], references: [albumId])
-  Track            Track?
-  faveAlbumAlbumId String?     @db.Uuid
+  id         String      @id @default(uuid()) @db.Uuid
+  name       String
+  grammy     Boolean     @default(false)
+  Album      Album[]
+  Track      Track?
+  FaveArtist FaveArtist?
 }
 
 model Album {
@@ -60,9 +58,8 @@ model FaveArtist {
 }
 
 model FaveAlbum {
-  albumId String   @unique @db.Uuid
-  album   Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  Artist  Artist[]
+  albumId String @unique @db.Uuid
+  album   Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
 }
 
 model FaveTrack {
