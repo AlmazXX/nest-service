@@ -10,45 +10,45 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { StatusCodes } from 'http-status-codes';
-import { AlbumService } from './album.service';
-import { CreateAlbumDto } from './dto/create-album.dto';
-import { UpdateAlbumDto } from './dto/update-album.dto';
+import { CreateTrackDto } from './dto/create-track.dto';
+import { UpdateTrackDto } from './dto/update-track.dto';
+import { TrackService } from './track.service';
 
-@Controller('album')
-export class AlbumController {
-  constructor(private readonly albumsService: AlbumService) {}
+@Controller('track')
+export class TrackController {
+  constructor(private readonly trackService: TrackService) {}
 
   @Post()
   @HttpCode(StatusCodes.CREATED)
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    createAlbumDto: CreateAlbumDto,
+    createTrackDto: CreateTrackDto,
   ) {
-    return this.albumsService.create(createAlbumDto);
+    return this.trackService.create(createTrackDto);
   }
 
   @Get()
   findAll() {
-    return this.albumsService.findAll();
+    return this.trackService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.albumsService.findOne(id);
+    return this.trackService.findOne(id);
   }
 
   @Put(':id')
   update(
     @Param('id') id: string,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    updateAlbumDto: UpdateAlbumDto,
+    updateTrackDto: UpdateTrackDto,
   ) {
-    return this.albumsService.update(id, updateAlbumDto);
+    return this.trackService.update(id, updateTrackDto);
   }
 
   @Delete(':id')
   @HttpCode(StatusCodes.NO_CONTENT)
   remove(@Param('id') id: string) {
-    return this.albumsService.remove(id);
+    return this.trackService.remove(id);
   }
 }

@@ -38,4 +38,16 @@ export class FavService {
       where: { albumId: id },
     });
   }
+
+  async createFaveTrack(id: string) {
+    return await this.prismaService.faveTrack.create({
+      data: { trackId: id },
+    });
+  }
+
+  async deleteFaveTrack(id: string) {
+    return await this.prismaService.faveTrack.delete({
+      where: { trackId: id },
+    });
+  }
 }

@@ -44,4 +44,16 @@ export class FavController {
   deleteFaveAlbum(@Param('id') id: string) {
     return this.favesService.deleteFaveAlbum(id);
   }
+
+  @Post('track/:id')
+  @HttpCode(StatusCodes.CREATED)
+  createFaveTrack(@Param('id') id: string) {
+    return this.favesService.createFaveTrack(id);
+  }
+
+  @Delete('track/:id')
+  @HttpCode(StatusCodes.NO_CONTENT)
+  deleteFaveTrack(@Param('id') id: string) {
+    return this.favesService.deleteFaveTrack(id);
+  }
 }
