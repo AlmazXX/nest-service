@@ -7,12 +7,17 @@ export class FavService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findAll() {
-    const { 0: artist, 1: album } = await Promise.all([
+    const {
+      0: artists,
+      1: albums,
+      2: tracks,
+    } = await Promise.all([
       this.prismaService.faveArtist.findMany({ include: { artist: true } }),
       this.prismaService.faveAlbum.findMany({ include: { album: true } }),
+      this.prismaService.faveTrack.findMany({ include: { track: true } }),
     ]);
 
-    return new Fave({ artist, album });
+    return new Fave({ artists, albums, tracks });
   }
 
   async createFaveArtist(id: string) {

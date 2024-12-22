@@ -15,7 +15,7 @@ export class TrackService {
   }
 
   async findOne(id: string) {
-    return await this.prismaService.track.findUnique({ where: { id } });
+    return await this.prismaService.track.findUniqueOrThrow({ where: { id } });
   }
 
   async update(id: string, updateTrackDto: UpdateTrackDto) {
