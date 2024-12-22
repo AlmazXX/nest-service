@@ -41,6 +41,12 @@ export class UserService {
     return new User(user);
   }
 
+  async findByLogin(login: string) {
+    return await this.prismaService.user.findFirst({
+      where: { login },
+    });
+  }
+
   async update(id: string, { oldPassword, newPassword }: UpdatePasswordDto) {
     const user = await this.prismaService.user.findUniqueOrThrow({
       where: { id },
