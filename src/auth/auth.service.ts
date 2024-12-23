@@ -1,11 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare as bcryptCompare, hash as bcryptHash } from 'bcrypt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { UserService } from 'src/user/user.service';
-import { LocalPayload } from './strategies/local-payload.type';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
+import { JwtPayload } from './types/jwt-payload.type';
+import { LocalPayload } from './types/local-payload.type';
 
 @Injectable()
 export class AuthService {
@@ -27,18 +32,19 @@ export class AuthService {
     return new User(user);
   }
 
-  async login(user: LocalPayload) {
-    return { accessToken: this.jwtService.sign(user) };
+  async login({ login, userId }: LocalPayload) {
+    const payload: JwtPayload = { login, sub: userId };
+    return { accessToken: this.jwtService.sign(payload) };
   }
 
   async validateUser(login: string, password: string): Promise<LocalPayload> {
     const user = await this.userService.findByLogin(login);
 
-    if (!user) return null;
+    if (!user) throw new ForbiddenException('Incorrect login or password');
 
     const isMatched = await bcryptCompare(password, user.password);
 
-    if (!isMatched) return null;
+    if (!isMatched) throw new ForbiddenException('Incorrect login or password');
 
     return { login: user.login, userId: user.id };
   }

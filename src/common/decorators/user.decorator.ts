@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { LocalPayload } from 'src/auth/strategies/local-payload.type';
+import { LocalPayload } from 'src/auth/types/local-payload.type';
 
 export const User = createParamDecorator<string, ExecutionContext>(
   (data, ctx): LocalPayload | LocalPayload[keyof LocalPayload] => {

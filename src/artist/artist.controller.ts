@@ -7,11 +7,9 @@ import {
   Param,
   Post,
   Put,
-  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { StatusCodes } from 'http-status-codes';
-import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
@@ -20,7 +18,6 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 export class ArtistController {
   constructor(private readonly artistsService: ArtistService) {}
 
-  @UseGuards(JwtGuard)
   @Post()
   @HttpCode(StatusCodes.CREATED)
   create(
@@ -30,19 +27,16 @@ export class ArtistController {
     return this.artistsService.create(createArtistDto);
   }
 
-  @UseGuards(JwtGuard)
   @Get()
   findAll() {
     return this.artistsService.findAll();
   }
 
-  @UseGuards(JwtGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.artistsService.findOne(id);
   }
 
-  @UseGuards(JwtGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
@@ -52,7 +46,6 @@ export class ArtistController {
     return this.artistsService.update(id, updateArtistDto);
   }
 
-  @UseGuards(JwtGuard)
   @Delete(':id')
   @HttpCode(StatusCodes.NO_CONTENT)
   remove(@Param('id') id: string) {

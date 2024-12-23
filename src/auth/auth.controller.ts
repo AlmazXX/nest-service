@@ -13,11 +13,13 @@ import { User } from 'src/common/decorators/user.decorator';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LocalGuard } from './guards/local.guard';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('signup')
   @HttpCode(StatusCodes.CREATED)
   @UseInterceptors(ClassSerializerInterceptor)
@@ -28,6 +30,7 @@ export class AuthController {
     return this.authService.signup(createUserDto);
   }
 
+  @Public()
   @UseGuards(LocalGuard)
   @Post('login')
   login(@User() user) {
