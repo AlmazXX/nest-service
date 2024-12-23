@@ -11,6 +11,8 @@ export class User implements UserModel {
   updatedAt: Date;
   @Exclude()
   password: string;
+  @Exclude()
+  refreshToken: string;
 
   constructor(user: Partial<User>) {
     Object.assign(this, user);

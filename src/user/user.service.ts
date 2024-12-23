@@ -41,12 +41,6 @@ export class UserService {
     return new User(user);
   }
 
-  async findByLogin(login: string) {
-    return await this.prismaService.user.findFirst({
-      where: { login },
-    });
-  }
-
   async update(id: string, { oldPassword, newPassword }: UpdatePasswordDto) {
     const user = await this.prismaService.user.findUniqueOrThrow({
       where: { id },
@@ -66,5 +60,18 @@ export class UserService {
 
   async remove(id: string) {
     await this.prismaService.user.delete({ where: { id } });
+  }
+
+  async findByLogin(login: string) {
+    return await this.prismaService.user.findFirst({
+      where: { login },
+    });
+  }
+
+  async updateRefreshToken(id: string, refreshToken: string) {
+    return await this.prismaService.user.update({
+      where: { id },
+      data: { refreshToken },
+    });
   }
 }
