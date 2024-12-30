@@ -1,10 +1,24 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { AlbumModule } from './album/album.module';
+import { ArtistModule } from './artist/artist.module';
+import config from './config/config';
+import { FavModule } from './fav/fav.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { TrackModule } from './track/track.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ load: [config] }),
+    PrismaModule,
+    UserModule,
+    ArtistModule,
+    AlbumModule,
+    FavModule,
+    TrackModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}
