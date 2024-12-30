@@ -17,15 +17,23 @@ git clone {repository URL}
 npm install
 ```
 
+## Setting environment variables
+
+```
+cp .env.example .env
+```
+
+Don't forget to change env values to your own!
+
+# Docker
+
+Make sure ports needed for the application is not busy
+
 ## Running application
 
 ```
-npm start
+npm run docker:up
 ```
-
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Testing
 
