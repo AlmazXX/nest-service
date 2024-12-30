@@ -3,3 +3,9 @@ dist
 *.log
 *.md
 .git
+test
+.env.example
+.eslintrc.js
+.prettierrc
+jest.config.json
+nest-cli.json
